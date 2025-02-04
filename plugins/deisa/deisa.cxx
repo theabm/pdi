@@ -111,7 +111,8 @@ public:
 		try {
 			// call bridge release() so that we can clear things before destructor is called (if it is ever called !).
 			assert(hasattr(m_bridge, "release"));
-			m_bridge.release();
+            py::object release = m_bridge.attr("release");
+			release();
 			m_bridge = py::none();
 			if (m_interpreter_initialized_in_plugin) {
 				py::finalize_interpreter();
